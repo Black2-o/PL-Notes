@@ -1,7 +1,24 @@
 # C++ Notes
 
 ---
+
+### Base Structure of a C++ Program
+
+```cpp
+// #include <bits/stdc++.h>
+#include <iostream>
+using namespace std;
+
+int main() {
+    // Your code goes here
+    return 0;
+}
+```
+
+---
+
 ### User Input / Output
+
 - **Input**: `cin` is used for taking input.
   ```cpp
   int x;
@@ -13,17 +30,21 @@
   ```
 
 ---
+
 ### Data Types
+
 - **Basic types**:
   - `int` (integer numbers)
   - `float` (decimal numbers)
   - `double` (large decimal numbers)
   - `char` (single character)
   - `bool` (true/false)
-  - `string` (text - needs `#include<string>`) 
+  - `string` (text - needs `#include<string>`)
 
 ---
+
 ### If-Else Statements
+
 - **Syntax**:
   ```cpp
   if (condition) {
@@ -34,7 +55,9 @@
   ```
 
 ---
+
 ### Switch Statement
+
 - **Syntax**:
   ```cpp
   switch (variable) {
@@ -50,7 +73,9 @@
   ```
 
 ---
+
 ### Arrays and Strings
+
 - **Arrays**: Collection of elements of the same type.
   ```cpp
   int arr[5] = {1, 2, 3, 4, 5};
@@ -61,7 +86,9 @@
   ```
 
 ---
+
 ### For Loops
+
 - **Syntax**:
   ```cpp
   for (int i = 0; i < n; i++) {
@@ -75,8 +102,18 @@
   }
   ```
 
+- **Input an Array Using For Loop**:
+  ```cpp
+  int arr[5];
+  for (int i = 0; i < 5; i++) {
+      cin >> arr[i];
+  }
+  ```
+
 ---
+
 ### While Loops
+
 - **Syntax**:
   ```cpp
   while (condition) {
@@ -92,8 +129,27 @@
   }
   ```
 
+### Do-While Loop
+
+- **Syntax**:
+  ```cpp
+  do {
+      // code block
+  } while (condition);
+  ```
+  Example:
+  ```cpp
+  int i = 1;
+  do {
+      cout << i << endl;
+      i++;
+  } while (i <= 5);
+  ```
+
 ---
+
 ### Functions (Pass by Reference and Value)
+
 - **Pass by Value**: The function gets a copy of the argument.
   ```cpp
   void display(int x) {
@@ -104,28 +160,6 @@
   ```cpp
   void update(int &x) {
       x = x + 10;
-  }
-  ```
-
----
-### Time Complexity Basics
-- **Basics**:
-  - Constant operations: `O(1)`
-  - Loops:
-    - Simple loop: `O(n)`
-    - Nested loop: `O(n^2)`
-- **Examples**:
-  ```cpp
-  // Example 1: O(n)
-  for (int i = 0; i < n; i++) {
-      cout << i << endl;
-  }
-
-  // Example 2: O(n^2)
-  for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-          cout << i << " " << j << endl;
-      }
   }
   ```
 
