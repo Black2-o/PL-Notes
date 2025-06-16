@@ -1,3 +1,243 @@
+🧠 **1. Binary Search**
+
+📘 **Concept:**
+Efficient algorithm to find an element or optimize answer in a sorted space.
+
+* Time complexity: O(log N)
+* Works when:
+
+  * Array is sorted
+  * Answer space is monotonic
+
+📋 **Template 1: Search in Sorted Array**
+
+```cpp
+int binarySearch(vector<int>& a, int target) {
+    int low = 0, high = a.size() - 1;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (a[mid] == target) return mid;
+        else if (a[mid] < target) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1; // Not found
+}
+```
+
+📋 **Template 2: Binary Search on Answer**
+
+```cpp
+bool isOk(int mid) {
+    // Define your condition here
+    return true; // or false
+}
+
+int solve() {
+    int low = 0, high = 1e9, ans = -1;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (isOk(mid)) {
+            ans = mid;
+            high = mid - 1; // Minimize
+        } else {
+            low = mid + 1;
+        }
+    }
+    return ans;
+}
+```
+
+🧠 **Use Cases:**
+
+* Find min/max that satisfies condition
+* Lower/Upper bound
+* Partitioning problems
+* Classical problems like: Aggressive Cows, EKO (woodcutting), Allocate Books
+
+---
+
+🏃‍♂️ **2. Two Pointers**
+
+📘 **Concept:**
+Use two indexes to traverse array efficiently
+
+* Time complexity: O(N) in most cases
+* Mostly used in:
+
+  * Subarrays / substrings
+  * Pair sum problems
+  * Sliding window problems
+
+📋 **Template 1: Sliding Window**
+
+```cpp
+int solve(vector<int>& a, int k) {
+    int left = 0, sum = 0, ans = 0;
+    for (int right = 0; right < a.size(); right++) {
+        sum += a[right];
+        while (sum > k) {
+            sum -= a[left++];
+        }
+        ans = max(ans, right - left + 1);
+    }
+    return ans;
+}
+```
+
+📋 **Template 2: Find Pair with Sum**
+
+```cpp
+bool hasPair(vector<int>& a, int target) {
+    sort(a.begin(), a.end());
+    int i = 0, j = a.size() - 1;
+    while (i < j) {
+        int sum = a[i] + a[j];
+        if (sum == target) return true;
+        else if (sum < target) i++;
+        else j--;
+    }
+    return false;
+}
+```
+
+🧠 **Use Cases:**
+
+* Longest substring with constraints
+* Two sum (sorted array)
+* Merge intervals
+* Trapping rain water
+
+---
+
+⚙️ **3. Bitmasks**
+
+📘 **Concept:**
+Use bits to represent sets, states, toggles
+
+* Efficient for subset generation
+* Time complexity: usually O(2^N), N ≤ 20–25
+
+📋 **Template 1: Generate All Subsets**
+
+```cpp
+int n = 4;
+for (int mask = 0; mask < (1 << n); mask++) {
+    for (int i = 0; i < n; i++) {
+        if (mask & (1 << i)) {
+            cout << "Take element " << i << "\n";
+        }
+    }
+}
+```
+
+📋 **Bit Tricks:**
+
+```cpp
+int setBit(int mask, int i) {
+    return mask | (1 << i);
+}
+
+int clearBit(int mask, int i) {
+    return mask & ~(1 << i);
+}
+
+int toggleBit(int mask, int i) {
+    return mask ^ (1 << i);
+}
+
+bool isBitSet(int mask, int i) {
+    return (mask >> i) & 1;
+}
+
+int countSetBits(int mask) {
+    return __builtin_popcount(mask);  // Built-in function in GCC
+}
+```
+
+🧠 **Use Cases:**
+
+* Subset generation
+* Travelling Salesman (TSP)
+* Light toggle puzzles
+* State DP (bitmask dp)
+* Count number of valid subsets
+
+---
+
+💪 **4. Brute Force**
+
+📘 **Concept:**
+Try all possible combinations / permutations
+
+* Acceptable when total operations ≤ 1e7
+* Time complexity: depends on approach
+
+📋 **Template 1: Nested Loops**
+
+```cpp
+void solve(vector<int>& a) {
+    int n = a.size();
+    for (int i = 0; i < n; i++) {
+        for (int j = i+1; j < n; j++) {
+            // Try every pair
+            if (a[i] + a[j] == 10) {
+                cout << i << " " << j << "\n";
+            }
+        }
+    }
+}
+```
+
+📋 **Template 2: Try All Subsets**
+
+```cpp
+void solve(vector<int>& a) {
+    int n = a.size();
+    for (int mask = 0; mask < (1 << n); mask++) {
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            if (mask & (1 << i)) {
+                sum += a[i];
+            }
+        }
+        if (sum == 10) {
+            cout << "Subset found with sum 10\n";
+        }
+    }
+}
+```
+
+📋 **Template 3: Generate All Permutations**
+
+```cpp
+void solve(vector<int>& a) {
+    sort(a.begin(), a.end());
+    do {
+        for (int x : a) cout << x << " ";
+        cout << "\n";
+    } while (next_permutation(a.begin(), a.end()));
+}
+```
+
+🧠 **Use Cases:**
+
+* N ≤ 10 or 12
+* Small inputs, testing all possibilities
+* Subset/permutation problems
+* Optimization + pruning
+
+---
+
+✅ **Quick Summary Table:**
+
+| Technique     | Time      | Usage Condition           | Common Use Case                    |
+| ------------- | --------- | ------------------------- | ---------------------------------- |
+| Binary Search | O(log N)  | Sorted / Monotonic        | Search, Minimize/Maximize problems |
+| Two Pointers  | O(N)      | Sorted/Linear Arrays      | Pairs, subarrays, window problems  |
+| Bitmasks      | O(2^N)    | N ≤ 20, subset/state prob | TSP, subset-sum, state DP          |
+| Brute Force   | ≤ 1e7 ops | Small N / Try all         | All combinations, logic testing    |
+
+
 🧠 **1. Graphs**
 
 📘 **Concept:**
